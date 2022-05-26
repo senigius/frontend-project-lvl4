@@ -1,30 +1,32 @@
-install: install-deps
+install: 
+		install-deps
 
 start:
-	heroku local -f Procfile.dev
+		heroku local -f Procfile.dev
 
 start-backend:
-	npm start --watch --verbose-watch
+		npm start --watch --verbose-watch
 
 start-frontend:
-	npx webpack serve
+		npx webpack serve
 
 install-deps:
-	npm ci
+		npm ci
 
 build:
-	npm run build
+		npm run build
 
 lint:
-	npx eslint . --ext js,jsx
+		npx eslint . --ext js,jsx
 
 publish:
-	npm publish
+		npm publish
 
 deploy:
-	git push heroku
+		git push heroku
 
 test:
-	npm test -s
+		npm test -s
 
-.PHONY: test
+.PHONY: 
+		test

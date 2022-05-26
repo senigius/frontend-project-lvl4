@@ -1,6 +1,7 @@
 // @ts-check
 
 const path = require('path');
+// @ts-ignore
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
@@ -13,12 +14,12 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist', 'public'),
     publicPath: '/assets/',
+    sourceMapFilename: '[name].js.map',
   },
   devServer: {
     compress: true,
     port: 8090,
     host: '0.0.0.0',
-    // publicPath: '/assets/',
     historyApiFallback: true,
   },
   plugins: [
@@ -26,6 +27,11 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -39,6 +45,10 @@ module.exports = {
           { loader: 'postcss-loader' },
           { loader: 'sass-loader' },
         ],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },

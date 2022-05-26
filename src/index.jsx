@@ -5,17 +5,10 @@ import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './init.jsx';
+import app from './init.jsx';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('chat'),
-);
+app();
