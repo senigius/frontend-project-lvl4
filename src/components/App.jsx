@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 
 import Login from './Login.jsx';
 import MissingPage from './MissingPage.jsx';
+import Chat from './Chat.jsx';
 import useAuth from '../hooks/index.jsx';
 
 const RequireAuth = ({ children }) => {
@@ -24,24 +25,18 @@ const RequireAuth = ({ children }) => {
   );
 };
 
-const Home = () => <h1>Home</h1>;
-
 const App = () => (
     <Router>
         <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
             <Navbar.Brand as={Link} to="/">
               Amogus Chat
             </Navbar.Brand>
-        <Nav className="mr-auto">
-          {/* <Nav.Link as={Link} to="/">Home</Nav.Link> */}
-          <Nav.Link as={Link} to="/404">NotFound</Nav.Link>
-        </Nav>
         <Nav.Link as={Link} to="/login">Login</Nav.Link>
         </Navbar>
         <Routes>
           <Route exact path="/" element={
             <RequireAuth>
-              <Home />
+              <Chat />
             </RequireAuth>
           }
           />

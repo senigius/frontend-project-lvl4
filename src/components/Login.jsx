@@ -29,8 +29,7 @@ const LoginPage = (props) => {
 
       try {
         const { data } = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(data));
-        auth.logIn();
+        auth.logIn(data);
         const { from } = location.state || state || { from: { pathname: '/' } };
         navigate(from);
       } catch (err) {
@@ -76,7 +75,6 @@ const LoginPage = (props) => {
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     isInvalid={authFailed}
-                    ref={inputRef}
                     placeholder="Введите ваш пароль"
                     name='password'
                     id='password'

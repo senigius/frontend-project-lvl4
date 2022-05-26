@@ -5,7 +5,11 @@ const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
   const [logged, setLogged] = useState(false);
 
-  const logIn = () => setLogged(true);
+  const logIn = (data) => {
+    localStorage.setItem('userId', JSON.stringify(data));
+    setLogged(true);
+  };
+
   const logOut = () => {
     localStorage.removeItem('userId');
     setLogged(false);
