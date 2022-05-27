@@ -14,14 +14,14 @@ import { ToastContainer } from 'react-toastify';
 import Login from './Login.jsx';
 import MissingPage from './MissingPage.jsx';
 import Chat from './Chat.jsx';
-import useAuth from '../hooks/index.jsx';
+import { useAuth } from '../hooks';
 
 const RequireAuth = ({ children }) => {
   const auth = useAuth();
   const location = useLocation();
 
   return (
-    auth.logged ? children : <Navigate to="/login" state={{ from: location }} />
+    auth.userId ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
 

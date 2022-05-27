@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-import useAuth from '../hooks/index';
+import { useAuth } from '../hooks';
 import routes from '../routes.js';
 
 import amogus from '../images/amogus.png';

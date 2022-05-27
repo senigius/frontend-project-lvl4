@@ -5,9 +5,12 @@ import {
   Form,
   InputGroup,
 } from 'react-bootstrap';
+import { useAuth, useSocket } from '../hooks';
 
 const Messages = () => {
   const inputRef = useRef();
+  const socket = useSocket();
+  const { userId } = useAuth();
   const { currentChannel, channels } = useSelector((state) => state.channelsReducer);
   const CurrentChannelName = channels.find(({ id }) => id === currentChannel?.name);
 
@@ -22,7 +25,17 @@ const Messages = () => {
     initialValues: {
       body: '',
     },
-    onSubmit: () => {},
+    onSubmit: (values, actions) => {
+      const message = {
+        body: values.body,
+        channelId: currentChannel,
+        username: userId.username,
+      };
+      socket.emit('newMessage', message, () => {
+        actions.resetForm();
+        inputRef.current.focus();
+      });
+    },
   });
 
   return (
@@ -57,7 +70,13 @@ const Messages = () => {
                                 type="text"
                                 placeholder="Введите сообщение..."
                             />
-                            <button type="submit" disabled={!formik.values.body.trim() || formik.isSubmitting} className="btn btn-group-vertical">
+                            <button
+                              type="submit"
+                              disabled={!formik.values.body.trim()
+                                || formik.isSubmitting
+                                || !socket.connected}
+                              className="btn btn-group-vertical"
+                            >
                                 <span>Отправить</span>
                             </button>
                         </InputGroup>
