@@ -8,7 +8,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 
 import Login from './Login.jsx';
@@ -27,11 +27,15 @@ const RequireAuth = ({ children }) => {
 
 const App = () => (
     <Router>
-        <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-            <Navbar.Brand as={Link} to="/">
-              Amogus Chat
+        <Navbar className="p-2 mb-2 bg-dark text-white" sticky="top">
+          <Container>
+            <Navbar.Brand as={Link} to="/" className="text-warning">
+              4mogusCh4t
             </Navbar.Brand>
-        <Nav.Link as={Link} to="/login">Login</Nav.Link>
+          </Container>
+          <Container className="justify-content-end">
+            <Nav.Link as={Link} to="/login">Вход</Nav.Link>
+          </Container>
         </Navbar>
         <Routes>
           <Route exact path="/" element={

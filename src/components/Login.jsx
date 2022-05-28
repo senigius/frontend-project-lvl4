@@ -50,7 +50,7 @@ const LoginPage = (props) => {
           <div className='card-shadow-sm'>
             <div className='card-body row p-5'>
               <div className='col-md-6 d-flex'>
-                <img className='col-md-12 row' src={amogus} alt='Useless picture of amogus' />
+                <img className='col-md-12 row img-fluid' src={amogus} alt='Useless picture of amogus' />
               </div>
               <Form onSubmit={formik.handleSubmit} className='col-md-6 mt-3 mt-mb-0'>
                 <h1 className='text-center mb-4'>Войти</h1>
@@ -83,13 +83,13 @@ const LoginPage = (props) => {
                   />
                   <Form.Control.Feedback type="invalid">Неправильный пароль или имя пользователя</Form.Control.Feedback>
                 </Form.Group>
-                <Button className='w-100 mb-3 btn btn-outline-primary' type="submit" variant="outline-primary">Вход</Button>
+                <Button className='w-100 mb-2 btn btn-outline-dark' type="submit" variant="outline-primary">Вход</Button>
               </Form>
             </div>
             <div className='card-footer p-4'>
               <div className='text-center'>
-                <span>Нет аккаунта?</span>
-                <a href='/'>зарегистрироваться</a>
+                <span>Нет аккаунта? </span>
+                <a href='/'>Стать амогусом</a>
               </div>
             </div>
           </div>

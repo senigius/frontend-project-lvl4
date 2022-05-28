@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, batch } from 'react-redux';
+import { useDispatch, batch, useSelector } from 'react-redux';
 import axios from 'axios';
 import {
   Container,
@@ -13,6 +13,7 @@ import Messages from './Messages.jsx';
 
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as messagesActions } from '../slices/messagesSlice';
+import buildModal from './ChannelsModals/index.js';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -23,8 +24,16 @@ const getAuthHeader = () => {
   return {};
 };
 
+const renderModal = (modal) => {
+  if (!modal.type) return null;
+
+  const Modal = buildModal(modal.type);
+  return <Modal />;
+};
+
 const Chat = () => {
   const dispatch = useDispatch();
+  const { modals } = useSelector((state) => state.modalsReducer);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +54,7 @@ const Chat = () => {
 
   return (
         <>
-            <Container className="h-100 my-4 overflow-hidden rounded shadow">
+            <Container className="h-100 my-4 overflow-hidden rounded shadow w-100">
                 <Row className="bg-white">
                     <Col className="border-end pt-5 px-0 bg-light" xs={4} md={2}>
                         <Channels />
@@ -55,6 +64,7 @@ const Chat = () => {
                     </Col>
                 </Row>
             </Container>
+            {renderModal(modals)}
         </>
   );
 };

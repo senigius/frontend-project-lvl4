@@ -12,7 +12,7 @@ const Messages = () => {
   const socket = useSocket();
   const { userId } = useAuth();
   const { currentChannel, channels } = useSelector((state) => state.channelsReducer);
-  const CurrentChannelName = channels.find(({ id }) => id === currentChannel?.name);
+  const CurrentChannelName = channels.find(({ id }) => id === currentChannel)?.name;
 
   const messages = useSelector((state) => {
     const generalMessages = state.messagesReducer.messages;
@@ -45,7 +45,7 @@ const Messages = () => {
                     <p className="m-0">
                         <b>{`# ${CurrentChannelName}`}</b>
                     </p>
-                    <span className="text-muted">{messages.length}  сообщений</span>
+                    <span className="text-muted">Сообщений: {messages.length}</span>
                 </div>
                 <div id="message-box" className="chat-messages overflow-auto px-5">
                     {messages.length > 0 && messages.map((message) => (
@@ -56,7 +56,7 @@ const Messages = () => {
                         </div>
                     ))}
                 </div>
-                <div className="mt-auto px-5 py-3">
+                <div className="mt-auto px-5 py-3 justify-content-bottom">
                     <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2" noValidate>
                         <InputGroup hasValidation>
                             <Form.Control
