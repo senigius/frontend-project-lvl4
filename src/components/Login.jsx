@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -7,12 +7,10 @@ import { useFormik } from 'formik';
 import { useAuth } from '../hooks';
 import routes from '../routes.js';
 
-import amogus from '../images/amogus.png';
+import amogus from '../images/amogusLog.png';
 
-const LoginPage = (props) => {
-  const { state } = props;
+const LoginPage = () => {
   const auth = useAuth();
-  const location = useLocation();
   const navigate = useNavigate();
   const [authFailed, setAuthFailed] = useState(false);
 
@@ -30,8 +28,7 @@ const LoginPage = (props) => {
       try {
         const { data } = await axios.post(routes.loginPath(), values);
         auth.logIn(data);
-        const { from } = location.state || state || { from: { pathname: '/' } };
-        navigate(from);
+        navigate('/');
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
@@ -89,7 +86,7 @@ const LoginPage = (props) => {
             <div className='card-footer p-4'>
               <div className='text-center'>
                 <span>Нет аккаунта? </span>
-                <a href='/'>Стать амогусом</a>
+                <Link to="/signup">Зарегистрироваться</Link>
               </div>
             </div>
           </div>

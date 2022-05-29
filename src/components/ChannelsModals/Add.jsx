@@ -25,7 +25,7 @@ const Add = () => {
       name: '',
     },
     validationSchema: yup.object({
-      name: yup.string().required().notOneOf(channelsNames, 'notOneOf'),
+      name: yup.string().required().max(10).notOneOf(channelsNames, 'notOneOf'),
     }),
     onSubmit: (name) => {
       socket.emit('newChannel', name, (response) => {

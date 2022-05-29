@@ -7,13 +7,17 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
-
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import {
+  Navbar,
+  Container,
+  Button,
+} from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 
 import Login from './Login.jsx';
 import MissingPage from './MissingPage.jsx';
 import Chat from './Chat.jsx';
+import RegistrationForm from './RegistrationForm.jsx';
 import { useAuth } from '../hooks';
 
 const RequireAuth = ({ children }) => {
@@ -22,6 +26,17 @@ const RequireAuth = ({ children }) => {
 
   return (
     auth.userId ? children : <Navigate to="/login" state={{ from: location }} />
+  );
+};
+
+const LogInOutButton = () => {
+  const auth = useAuth();
+  const location = useLocation();
+
+  return (
+    auth.userId
+      ? <Button variant="warning" onClick={auth.logOut}>Выйти</Button>
+      : location.pathname === '/signUp' && <Button variant="warning" as={Link} to="/login">Вход</Button>
   );
 };
 
@@ -34,7 +49,7 @@ const App = () => (
             </Navbar.Brand>
           </Container>
           <Container className="justify-content-end">
-            <Nav.Link as={Link} to="/login">Вход</Nav.Link>
+            <LogInOutButton />
           </Container>
         </Navbar>
         <Routes>
@@ -46,6 +61,7 @@ const App = () => (
           />
           <Route path="/login" element={<Login />} />
           <Route path="/404" element={<MissingPage />} />
+          <Route path="/signup" element={<RegistrationForm />} />
           <Route path="*" element={<MissingPage />} />
         </Routes>
       <ToastContainer />
