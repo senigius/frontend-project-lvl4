@@ -5,12 +5,14 @@ import {
   ButtonGroup,
   Dropdown,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as modalsActions } from '../slices/modalsSlice';
 
 const Channel = ({ id, name, removable }) => {
+  const { t } = useTranslation();
   const { currentChannel } = useSelector((state) => state.channelsReducer);
   const dispatch = useDispatch();
   const btnClasses = cn({
@@ -56,10 +58,10 @@ const Channel = ({ id, name, removable }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={handleRename}>
-                    {'Rename'}
+                    {t('channels.chRename')}
                   </Dropdown.Item>
                   <Dropdown.Item onClick={handleRemove}>
-                    {'Remove'}
+                    {t('channels.chRemove')}
                   </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

@@ -49,23 +49,22 @@ const Chat = () => {
       }
     };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
-        <>
-            <Container className="h-100 my-4 overflow-hidden rounded shadow w-100">
-                <Row className="bg-white">
-                    <Col className="border-end pt-5 px-0 bg-light" xs={4} md={2}>
-                        <Channels />
-                    </Col>
-                    <Col className="p-0">
-                        <Messages />
-                    </Col>
-                </Row>
-            </Container>
-            {renderModal(modals)}
-        </>
+    <>
+        <Container className="h-100 my-4 overflow-hidden rounded shadow w-100">
+            <Row className="bg-light">
+                <Col className="border-end pt-5 px-0 bg-light" xs={4} md={2}>
+                    <Channels />
+                </Col>
+                <Col className="p-0">
+                    <Messages />
+                </Col>
+            </Row>
+        </Container>
+        {renderModal(modals)}
+    </>
   );
 };
 

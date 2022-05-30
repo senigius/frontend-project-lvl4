@@ -13,6 +13,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import Login from './Login.jsx';
 import MissingPage from './MissingPage.jsx';
@@ -32,20 +33,24 @@ const RequireAuth = ({ children }) => {
 const LogInOutButton = () => {
   const auth = useAuth();
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     auth.userId
-      ? <Button variant="warning" onClick={auth.logOut}>Выйти</Button>
-      : location.pathname === '/signUp' && <Button variant="warning" as={Link} to="/login">Вход</Button>
+      ? <Button variant="warning" onClick={auth.logOut}>{t('logOut')}</Button>
+      : location.pathname === '/signUp' && <Button variant="warning" as={Link} to="/login">{t('logIn')}</Button>
   );
 };
 
-const App = () => (
+const App = () => {
+  const { t } = useTranslation();
+
+  return (
     <Router>
-        <Navbar className="p-2 mb-2 bg-dark text-white" sticky="top">
+        <Navbar className="p-2 mb-2 bg-dark">
           <Container>
             <Navbar.Brand as={Link} to="/" className="text-warning">
-              4mogusCh4t
+              {t('chatName')}
             </Navbar.Brand>
           </Container>
           <Container className="justify-content-end">
@@ -66,6 +71,7 @@ const App = () => (
         </Routes>
       <ToastContainer />
     </Router>
-);
+  );
+};
 
 export default App;

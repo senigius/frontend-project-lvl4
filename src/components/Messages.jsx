@@ -1,18 +1,22 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useFormik } from 'formik';
 import {
   Form,
   InputGroup,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik';
+import filter from 'leo-profanity';
+
 import { useAuth, useSocket } from '../hooks';
 
 const Messages = () => {
   const inputRef = useRef();
   const socket = useSocket();
   const { userId } = useAuth();
+  const { t } = useTranslation();
   const { currentChannel, channels } = useSelector((state) => state.channelsReducer);
-  const CurrentChannelName = channels.find(({ id }) => id === currentChannel)?.name;
+  const currentChannelName = channels.find(({ id }) => id === currentChannel)?.name;
 
   const messages = useSelector((state) => {
     const generalMessages = state.messagesReducer.messages;
@@ -27,7 +31,7 @@ const Messages = () => {
     },
     onSubmit: (values, actions) => {
       const message = {
-        body: values.body,
+        body: filter.clean(values.body),
         channelId: currentChannel,
         username: userId.username,
       };
@@ -43,9 +47,11 @@ const Messages = () => {
             <div className="d-flex flex-column h-100">
                 <div className="bg-light mb-4 p-3 shadow-sm small">
                     <p className="m-0">
-                        <b>{`# ${CurrentChannelName}`}</b>
+                        <b>{`# ${currentChannelName}`}</b>
                     </p>
-                    <span className="text-muted">Сообщений: {messages.length}</span>
+                    <span className="text-muted">
+                      {t('messages.messagesCount', { count: messages.length })}
+                    </span>
                 </div>
                 <div id="message-box" className="chat-messages overflow-auto px-5">
                     {messages.length > 0 && messages.map((message) => (
@@ -68,7 +74,7 @@ const Messages = () => {
                                 aria-label="Новое сообщение"
                                 className="border-0 p-0 ps-2"
                                 type="text"
-                                placeholder="Введите сообщение..."
+                                placeholder={t('messages.placeholder')}
                             />
                             <button
                               type="submit"
@@ -77,7 +83,7 @@ const Messages = () => {
                                 || !socket.connected}
                               className="btn btn-group-vertical"
                             >
-                                <span>Отправить</span>
+                                <span>{t('messages.btn')}</span>
                             </button>
                         </InputGroup>
                     </Form>

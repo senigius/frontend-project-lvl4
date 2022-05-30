@@ -1,18 +1,20 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Nav } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import Channel from './Channel.jsx';
 import { actions as modalsActions } from '../slices/modalsSlice.js';
 
 const Channels = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { channels } = useSelector((state) => state.channelsReducer);
 
   return (
     <>
         <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-            <span>Каналы</span>
+            <span>{t('channels.title')}</span>
             <button
                 className="btn btn-dark text-warning p-0"
                 type="button"
