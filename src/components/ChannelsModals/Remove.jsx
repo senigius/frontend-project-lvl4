@@ -38,7 +38,7 @@ const Remove = () => {
             {t('modal.cancel')}
           </button>
           <button onClick={handleRemove} type="button" className="me-2 btn btn-danger">
-            {t('modal.submit')}
+            {t('modal.delete')}
           </button>
         </div>
       </Modal.Body>
