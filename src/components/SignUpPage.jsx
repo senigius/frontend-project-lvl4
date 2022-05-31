@@ -78,6 +78,7 @@ const SignUpPage = () => {
                     className="form-control"
                     name="username"
                     placeholder={t('signUpPage.username')}
+                    autoComplete="username"
                     value={formik.values.username}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -95,6 +96,7 @@ const SignUpPage = () => {
                     type="password"
                     className="form-control"
                     name="password"
+                    autoComplete="new-password"
                     placeholder={t('signUpPage.password')}
                     value={formik.values.password}
                     onChange={formik.handleChange}
@@ -112,6 +114,7 @@ const SignUpPage = () => {
                     type="password"
                     className="form-control"
                     name="passwordConfirm"
+                    autoComplete="new-password"
                     placeholder={t('signUpPage.passwordConfirm')}
                     value={formik.values.passwordConfirm}
                     onChange={formik.handleChange}
