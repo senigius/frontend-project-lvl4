@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useSocket } from '../../hooks/index.jsx';
 import { actions as modalsActions } from '../../slices/modalsSlice.js';
 import { actions as channelsActions } from '../../slices/channelsSlice.js';
+import { getChannelsNames } from '../../slices/selectors.js';
 
 const Add = () => {
   const socket = useSocket();
@@ -16,8 +17,7 @@ const Add = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
 
-  const channels = useSelector((state) => state.channelsReducer.channels);
-  const channelsNames = channels.map(({ name }) => name);
+  const channelsNames = useSelector(getChannelsNames);
 
   const handleClose = () => dispatch(modalsActions.hideModal());
 

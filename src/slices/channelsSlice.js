@@ -1,7 +1,18 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+import routes from '../routes.js';
 
 const defaultChannelId = 1;
+
+export const fetchChannels = createAsyncThunk(
+  'channels/fetchChannels',
+  async (authHeader) => {
+    const { data } = await axios.get(routes.usersPath(), { headers: authHeader });
+    return data;
+  },
+);
 
 const initialState = {
   channels: [],
@@ -31,6 +42,16 @@ const channelsSlice = createSlice({
         state.currentChannel = defaultChannelId;
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchChannels.fulfilled, (state, { payload }) => {
+        state.channels = payload.channels;
+        state.currentChannel = payload.currentChannelId;
+      })
+      .addCase(fetchChannels.rejected, (_state, action) => {
+        console.log(action.error);
+      });
   },
 });
 

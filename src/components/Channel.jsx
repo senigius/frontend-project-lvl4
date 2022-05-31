@@ -10,14 +10,17 @@ import cn from 'classnames';
 
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as modalsActions } from '../slices/modalsSlice';
+import { getCurrentChannel } from '../slices/selectors';
 
 const Channel = ({ id, name, removable }) => {
   const { t } = useTranslation();
-  const { currentChannel } = useSelector((state) => state.channelsReducer);
   const dispatch = useDispatch();
+
+  const currentChannel = useSelector(getCurrentChannel);
+
   const btnClasses = cn({
     'w-100 rounded-0 text-start text-truncate btn': true,
-    'btn-secondary': id === currentChannel,
+    'btn-warning': id === currentChannel,
   });
 
   const handleRename = () => {
@@ -28,11 +31,15 @@ const Channel = ({ id, name, removable }) => {
     dispatch(modalsActions.showModal({ type: 'removeChannel', item: { id, name } }));
   };
 
+  const handleActiveChannel = () => {
+    dispatch(channelsActions.setCurrentChannel(id));
+  };
+
   if (!removable) {
     return (
       <Nav.Item as="li" className="w-100">
         <button
-          onClick={() => dispatch(channelsActions.setCurrentChannel(id))}
+          onClick={handleActiveChannel}
           type="button"
           className={btnClasses}
         >
@@ -47,14 +54,14 @@ const Channel = ({ id, name, removable }) => {
     <Nav.Item as="li" className="w-100">
       <Dropdown className="d-flex" as={ButtonGroup}>
         <button
-          onClick={() => dispatch(channelsActions.setCurrentChannel(id))}
+          onClick={handleActiveChannel}
           type="button"
           className={btnClasses}
         >
           <span className="me-1">#</span>
           {name}
         </button>
-        <Dropdown.Toggle split variant={id === currentChannel ? 'secondary' : ''}>
+        <Dropdown.Toggle split variant={id === currentChannel && 'secondary'}>
           <span className="visually-hidden">{t('channels.name')}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>

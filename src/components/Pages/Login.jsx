@@ -14,19 +14,21 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { useAuth } from '../hooks';
-import routes from '../routes.js';
+import { useAuth } from '../../hooks';
+import routes from '../../routes.js';
 
-import amogus from '../images/amogusLog.png';
+import amogus from '../../images/amogusLog.png';
 
 const LoginPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const inputRef = useRef();
   const [authFailed, setAuthFailed] = useState(false);
 
-  const inputRef = useRef();
-  useEffect(() => inputRef.current.focus(), []);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -56,10 +58,10 @@ const LoginPage = () => {
 
   return (
     <Container fluid className="h-75">
-      <Row className="justify-content-center align-content-center h-100">
+      <Row className="justify-content-center py-5 h-100">
         <Col xs={12} md={8} xxl={6}>
           <Card className="shadow-lg">
-            <Card.Body className="row p-5">
+            <Card.Body className="row p-4">
               <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
                 <Col md={12}>
                   <Image className="img-fluid" src={amogus} alt="Picture of amogus" />
@@ -102,8 +104,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4 bg-dark text-white">
               <Container className="text-center">
                 <span>
-                  {t('loginPage.regQuestion')}
-                  {' '}
+                  {`${t('loginPage.regQuestion')} `}
                 </span>
                 <Link to="/signup" className="text-white">{t('loginPage.registrationLink')}</Link>
               </Container>

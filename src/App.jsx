@@ -15,10 +15,10 @@ import {
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import Login from './components/LoginPage.jsx';
-import MissingPage from './components/MissingPage.jsx';
-import Chat from './components/ChatPage.jsx';
-import SignUpPage from './components/SignUpPage.jsx';
+import Login from './components/Pages/Login.jsx';
+import MissingPage from './components/Pages/404.jsx';
+import Chat from './components/Pages/Chat.jsx';
+import SignUpPage from './components/Pages/SignUp.jsx';
 import { useAuth } from './hooks/index.jsx';
 
 const RequireAuth = ({ children }) => {
@@ -30,16 +30,18 @@ const RequireAuth = ({ children }) => {
   );
 };
 
-const LogInOutButton = () => {
+const AuthButton = () => {
   const auth = useAuth();
   const location = useLocation();
   const { t } = useTranslation();
 
-  return (
-    auth.userId
-      ? <Button variant="warning" onClick={auth.logOut}>{t('logOut')}</Button>
-      : location.pathname === '/signUp' && <Button variant="warning" as={Link} to="/login">{t('logIn')}</Button>
-  );
+  if (auth.userId) {
+    return <Button variant="warning" onClick={auth.logOut}>{t('logOut')}</Button>;
+  }
+  if (location.pathname === '/signup') {
+    return <Button variant="warning" as={Link} to="/login">{t('logIn')}</Button>;
+  }
+  return null;
 };
 
 const App = () => {
@@ -52,7 +54,7 @@ const App = () => {
           <Navbar.Brand as={Link} to="/" className="text-warning">
             {t('chatName')}
           </Navbar.Brand>
-          <LogInOutButton />
+          <AuthButton />
         </Container>
       </Navbar>
       <Routes>
@@ -71,7 +73,7 @@ const App = () => {
         <Route path="*" element={<MissingPage />} />
       </Routes>
       <ToastContainer
-        position="bottom-right"
+        position="top-center"
         theme="dark"
       />
     </Router>

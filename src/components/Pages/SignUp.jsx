@@ -16,10 +16,10 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 
-import { useAuth } from '../hooks/index.jsx';
-import routes from '../routes.js';
+import { useAuth } from '../../hooks/index.jsx';
+import routes from '../../routes.js';
 
-import amogus from '../images/amogusReg.png';
+import amogus from '../../images/amogusReg.png';
 
 const SignUpPage = () => {
   const auth = useAuth();
@@ -28,7 +28,9 @@ const SignUpPage = () => {
   const inputRef = useRef();
   const [registrationFailed, setRegistrationFailed] = useState(false);
 
-  useEffect(() => inputRef.current.focus(), []);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -67,10 +69,10 @@ const SignUpPage = () => {
 
   return (
     <Container fluid className="h-75">
-      <Row className="justify-content-center align-content-center h-100">
+      <Row className="justify-content-center py-5 h-100">
         <Col xs={12} md={8} xxl={6}>
           <Card className="shadow-lg">
-            <Card.Body className="row p-5">
+            <Card.Body className="row p-4">
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">{t('signUpPage.title')}</h1>
                 <Form.FloatingLabel className="mb-3" controlId="username" label={t('signUpPage.username')}>

@@ -6,17 +6,18 @@ import { toast } from 'react-toastify';
 
 import { actions as modalsActions } from '../../slices/modalsSlice.js';
 import { useSocket } from '../../hooks/index.jsx';
+import { getModalItem } from '../../slices/selectors.js';
 
 const Remove = () => {
   const { t } = useTranslation();
   const socket = useSocket();
   const dispatch = useDispatch();
-  const { modals: { item } } = useSelector((state) => state.modalsReducer);
+  const modal = useSelector(getModalItem);
 
   const handleClose = () => dispatch(modalsActions.hideModal());
 
   const handleRemove = () => {
-    socket.emit('removeChannel', item, (response) => {
+    socket.emit('removeChannel', modal, (response) => {
       if (response.status === 'ok') {
         handleClose();
         toast.success(t('notifications.channelRemoved'));
@@ -33,10 +34,7 @@ const Remove = () => {
       </Modal.Header>
       <Modal.Body>
         <div className="lead p-3">
-          {t('modal.removeChBody')}
-          {' '}
-          {item.name}
-          ?
+          {`${t('modal.removeChBody')} ${modal.name}?`}
         </div>
         <div className="d-flex justify-content-end">
           <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">

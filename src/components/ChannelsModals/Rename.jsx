@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 import { actions as modalsActions } from '../../slices/modalsSlice';
 import { useSocket } from '../../hooks/index.jsx';
+import { getChannelsNames, getModalItem } from '../../slices/selectors';
 
 const Rename = () => {
   const socket = useSocket();
@@ -15,13 +16,14 @@ const Rename = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
 
-  const { modals: { item } } = useSelector((state) => state.modalsReducer);
-  const channels = useSelector((state) => state.channelsReducer.channels);
-  const channelsNames = channels.map(({ name }) => name);
+  const modal = useSelector(getModalItem);
+  const channelsNames = useSelector(getChannelsNames);
 
   const handleClose = () => dispatch(modalsActions.hideModal());
 
-  useEffect(() => inputRef.current.focus(), []);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +37,7 @@ const Rename = () => {
     onSubmit: (values) => {
       const data = {
         name: values.name,
-        id: item.id,
+        id: modal.id,
       };
       socket.emit('renameChannel', data, (response) => {
         if (response.status === 'ok') {

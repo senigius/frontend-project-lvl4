@@ -11,21 +11,24 @@ import { useFormik } from 'formik';
 import filter from 'leo-profanity';
 
 import { useAuth, useSocket } from '../hooks';
+import { getChannels, getCurrentChannel, getMessages } from '../slices/selectors';
 
 const Messages = () => {
   const inputRef = useRef();
   const socket = useSocket();
   const { userId } = useAuth();
   const { t } = useTranslation();
-  const { currentChannel, channels } = useSelector((state) => state.channelsReducer);
+
+  const currentChannel = useSelector(getCurrentChannel);
+  const channels = useSelector(getChannels);
   const currentChannelName = channels.find(({ id }) => id === currentChannel)?.name;
 
-  const messages = useSelector((state) => {
-    const generalMessages = state.messagesReducer.messages;
-    return generalMessages.filter(({ channelId }) => channelId === currentChannel);
-  });
+  const allMessages = useSelector(getMessages);
+  const messages = allMessages.filter(({ channelId }) => channelId === currentChannel);
 
-  useEffect(() => inputRef.current.focus(), [currentChannel]);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [currentChannel]);
 
   useEffect(() => {
     animateScroll.scrollToBottom({
@@ -53,7 +56,7 @@ const Messages = () => {
 
   return (
     <div className="d-flex flex-column h-100">
-      <div className="mb-4 p-3 shadow-sm">
+      <div className="mb-2 p-2 shadow-sm">
         <p className="m-0">
           <b>{`# ${currentChannelName}`}</b>
         </p>
@@ -61,13 +64,11 @@ const Messages = () => {
           {t('messages.messagesCount', { count: messages.length })}
         </span>
       </div>
-      <div id="message-box" className="chat-messages overflow-auto px-5">
+      <div id="message-box" className="chat-messages overflow-auto px-4">
         {messages.length > 0 && messages.map((message) => (
           <div className="text-break mb-2" key={message.id}>
             <b>{message.username}</b>
-            :
-            {' '}
-            {message.body}
+            {`: ${message.body}`}
           </div>
         ))}
       </div>
@@ -81,7 +82,7 @@ const Messages = () => {
               ref={inputRef}
               name="body"
               aria-label="Новое сообщение"
-              className="border-1 p-0 ps-2 overflow-auto"
+              className="border-1 p-1 ps-2 overflow-auto border-color-dark"
               type="text"
               placeholder={t('messages.placeholder')}
             />
@@ -90,7 +91,7 @@ const Messages = () => {
               disabled={!formik.values.body.trim()
                   || formik.isSubmitting
                   || !socket.connected}
-              className="btn btn-dark text-warning border-0 p-2 m-0"
+              className="btn btn-dark text-warning p-2 m-1 rounded-2"
             >
               {t('messages.btn')}
             </Button>
