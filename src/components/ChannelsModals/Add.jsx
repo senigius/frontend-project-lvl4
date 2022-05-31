@@ -29,7 +29,7 @@ const Add = () => {
     },
     validationSchema: yup.object({
       name: yup.string().required(t('yup.required'))
-        .max(10, t('modal.chMaxLength'))
+        .max(20, t('modal.chMaxLength'))
         .notOneOf(channelsNames, t('yup.notOneOf')),
     }),
     onSubmit: (name) => {
