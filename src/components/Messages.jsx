@@ -71,7 +71,7 @@ const Messages = () => {
           </div>
         ))}
       </div>
-      <div className="m-3 p-0 mt-auto overflow-auto">
+      <div className="m-3 p-0 mt-auto">
         <Form onSubmit={formik.handleSubmit} className="p-2 rounded-2" noValidate>
           <InputGroup hasValidation>
             <Form.Control
