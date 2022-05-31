@@ -20,7 +20,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const rollbarConfig = {
-  accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
+  accessToken: '6f9cd66044fa4a3db520d660139df37f',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
   enviroment: 'production',
 };
 
