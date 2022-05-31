@@ -9,7 +9,7 @@ export default {
       password: 'Пароль',
       btn: 'Войти',
       regQuestion: 'Нет аккаунта?',
-      registrationLink: 'Зарегистрироваться',
+      registrationLink: 'Регистрация',
     },
     signUpPage: {
       title: 'Регистрация',
