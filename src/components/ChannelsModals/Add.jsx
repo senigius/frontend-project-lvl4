@@ -53,6 +53,7 @@ const Add = () => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} autoComplete="off">
           <Form.Group className="form-group" controlId="name">
+            <Form.Label visuallyHidden>{t('modal.chName')}</Form.Label>
             <Form.Control
               ref={inputRef}
               isInvalid={formik.errors.name}
