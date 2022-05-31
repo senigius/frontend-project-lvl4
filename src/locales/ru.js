@@ -58,9 +58,9 @@ export default {
       network: 'Ошибка соединения',
     },
     notifications: {
-      channelCreated: ' Канал создан',
-      channelRemoved: ' Канал удалён',
-      channelRenamed: ' Канал переименован',
+      channelCreated: 'Канал создан',
+      channelRemoved: 'Канал удалён',
+      channelRenamed: 'Канал переименован',
     },
   },
 };

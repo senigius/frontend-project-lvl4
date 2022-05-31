@@ -67,7 +67,10 @@ const App = () => {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="*" element={<MissingPage />} />
         </Routes>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        theme="dark"
+      />
     </Router>
   );
 };
