@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import Login from './components/LoginPage.jsx';
 import MissingPage from './components/MissingPage.jsx';
 import Chat from './components/ChatPage.jsx';
-import RegistrationForm from './components/SignUpPage.jsx';
+import SignUpPage from './components/SignUpPage.jsx';
 import { useAuth } from './hooks/index.jsx';
 
 const RequireAuth = ({ children }) => {
@@ -47,13 +47,11 @@ const App = () => {
 
   return (
     <Router>
-        <Navbar className="p-2 mb-2 bg-dark">
+        <Navbar className="p-2 mb-2 bg-dark rounded-3">
           <Container>
             <Navbar.Brand as={Link} to="/" className="text-warning">
               {t('chatName')}
             </Navbar.Brand>
-          </Container>
-          <Container className="justify-content-end">
             <LogInOutButton />
           </Container>
         </Navbar>
@@ -66,7 +64,7 @@ const App = () => {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/404" element={<MissingPage />} />
-          <Route path="/signup" element={<RegistrationForm />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="*" element={<MissingPage />} />
         </Routes>
       <ToastContainer />
