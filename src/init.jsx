@@ -20,12 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const rollbarConfig = {
-  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  payload: {
-    enviroment: 'production',
-  },
+  accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
+  enviroment: 'production',
 };
 
 const init = async (socket) => {
