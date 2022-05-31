@@ -4,6 +4,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from 'i18next';
 import filter from 'leo-profanity';
 import 'regenerator-runtime';
+import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 
 import App from './components/App.jsx';
 import { AuthProvider } from './contexts/authContext.jsx';
@@ -17,6 +18,15 @@ import ru from './locales/ru.js';
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
+
+const rollbarConfig = {
+  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    enviroment: 'production',
+  },
+};
 
 const init = async (socket) => {
   await i18n.init({
@@ -47,15 +57,19 @@ const init = async (socket) => {
   });
 
   return (
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
         <Provider store={store}>
           <I18nextProvider i18n={i18n}>
             <AuthProvider>
-                <SocketContext.Provider value={socket}>
-                    <App />
-                </SocketContext.Provider>
+              <SocketContext.Provider value={socket}>
+                <App />
+              </SocketContext.Provider>
             </AuthProvider>
           </I18nextProvider>
         </Provider>
+      </ErrorBoundary>
+    </RollbarProvider>
   );
 };
 
