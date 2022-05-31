@@ -94,14 +94,17 @@ const LoginPage = () => {
                   />
                   {authFailed && (<Form.Control.Feedback type="invalid" tooltip>{t('errors.authFailed')}</Form.Control.Feedback>)}
                 </Form.FloatingLabel>
-                <Button className='w-100 mb-2 btn btn-outline-dark' type="submit" variant="outline-primary">
+                <Button className="w-100 mb-2 btn btn-outline-dark" type="submit" variant="outline-primary">
                   {t('loginPage.btn')}
                 </Button>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4 bg-dark text-white">
               <Container className="text-center">
-                <span>{t('loginPage.regQuestion')} </span>
+                <span>
+                  {t('loginPage.regQuestion')}
+                  {' '}
+                </span>
                 <Link to="/signup" className="text-white">{t('loginPage.registrationLink')}</Link>
               </Container>
             </Card.Footer>

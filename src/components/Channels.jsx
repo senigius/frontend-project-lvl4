@@ -20,7 +20,7 @@ const Channels = () => {
           type="button"
           onClick={() => dispatch(modalsActions.showModal({ type: 'addChannel' }))}
         >
-            <i>+</i>
+          <i>+</i>
         </button>
       </div>
       <Nav as="ul" className="flexs-column px-2" variant="pills" fill>

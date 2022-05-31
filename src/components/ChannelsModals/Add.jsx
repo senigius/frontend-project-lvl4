@@ -64,7 +64,7 @@ const Add = () => {
               name="name"
               type="text"
             />
-              {formik.errors.name && <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>}
+            {formik.errors.name && <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>}
           </Form.Group>
           <div className="d-flex justify-content-end">
             <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">

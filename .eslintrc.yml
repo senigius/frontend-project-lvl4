@@ -10,7 +10,7 @@ plugins:
   - jest-dom
 
 extends:
-  - "airbnb-base"
+  - airbnb
   - "plugin:jest/recommended"
   - "plugin:functional/external-recommended"
   - "plugin:functional/recommended"
@@ -23,19 +23,24 @@ env:
   browser: true
   node: true
   jest: true
-  es2021: true
+  # es2020: true
 
-parserOptions:
-  ecmaVersion: 2020
+# parserOptions:
+#   ecmaVersion: 2020
 
-settings:
-  react:
-    version: "16.13"
+# settings:
+#   import/resolver:
+#     webpack:
+#     node:
+#     # webpack:
+# #   react:
+# #     version: "16.13"
 
 rules:
   import/extensions: 0
+  # TODO: cause an error
   import/no-unresolved: 0
-  react/jsx-filename-extension: 0
+  # react/jsx-filename-extension: 0
   react/prop-types: 0
   no-console: 0
   functional/no-conditional-statement: 0
@@ -45,4 +50,5 @@ rules:
   functional/no-try-statement: 0
   functional/no-throw-statement: 0
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
-  testing-library/no-debugging-utils: 0
+  testing-library/no-debug: 0
+  react/function-component-definition: 0

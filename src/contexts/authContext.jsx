@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useMemo, useState } from 'react';
 
 const AuthContext = createContext({});
 
@@ -16,23 +16,23 @@ const AuthProvider = ({ children }) => {
     setUserId(null);
   };
 
-  const getAuthHeader = () => {
-    if (userId && userId.token) {
-      return { Authorization: `Bearer ${userId.token}` };
-    }
+  const memeizedValue = useMemo(() => ({
+    userId,
+    logIn,
+    logOut,
+    getAuthHeader: () => {
+      if (userId && userId.token) {
+        return { Authorization: `Bearer ${userId.token}` };
+      }
 
-    return {};
-  };
+      return {};
+    },
+  }), [userId]);
 
   return (
-        <AuthContext.Provider value ={{
-          userId,
-          logIn,
-          logOut,
-          getAuthHeader,
-        }}>
-            {children}
-        </AuthContext.Provider>
+    <AuthContext.Provider value={memeizedValue}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

@@ -126,9 +126,11 @@ const SignUpPage = () => {
                   <Form.Control.Feedback type="invalid" tooltip>
                     {formik.errors.passwordConfirm}
                   </Form.Control.Feedback>
-                  {registrationFailed && (<Form.Control.Feedback type="invalid" tooltip>
+                  {registrationFailed && (
+                  <Form.Control.Feedback type="invalid" tooltip>
                     {t('errors.signUpFailed')}
-                  </Form.Control.Feedback>)}
+                  </Form.Control.Feedback>
+                  )}
                 </Form.FloatingLabel>
                 <Button className="w-100 mb-3 btn btn-outline-dark" type="submit" variant="outline-primary">
                   {t('signUpPage.btn')}

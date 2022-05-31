@@ -47,26 +47,29 @@ const App = () => {
 
   return (
     <Router>
-        <Navbar className="p-2 mb-2 bg-dark rounded-3">
-          <Container>
-            <Navbar.Brand as={Link} to="/" className="text-warning">
-              {t('chatName')}
-            </Navbar.Brand>
-            <LogInOutButton />
-          </Container>
-        </Navbar>
-        <Routes>
-          <Route exact path="/" element={
+      <Navbar className="p-2 mb-2 bg-dark rounded-3">
+        <Container>
+          <Navbar.Brand as={Link} to="/" className="text-warning">
+            {t('chatName')}
+          </Navbar.Brand>
+          <LogInOutButton />
+        </Container>
+      </Navbar>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={(
             <RequireAuth>
               <Chat />
             </RequireAuth>
-          }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/404" element={<MissingPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="*" element={<MissingPage />} />
-        </Routes>
+        )}
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/404" element={<MissingPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="*" element={<MissingPage />} />
+      </Routes>
       <ToastContainer
         position="bottom-right"
         theme="dark"

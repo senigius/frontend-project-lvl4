@@ -32,7 +32,12 @@ const Remove = () => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="lead p-3">{t('modal.removeChBody')} {item.name}?</div>
+        <div className="lead p-3">
+          {t('modal.removeChBody')}
+          {' '}
+          {item.name}
+          ?
+        </div>
         <div className="d-flex justify-content-end">
           <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">
             {t('modal.cancel')}
