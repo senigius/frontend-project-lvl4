@@ -66,35 +66,33 @@ const LoginPage = () => {
                 </Col>
               </Col>
               <Form onSubmit={formik.handleSubmit} className="col-md-6 mt-3 mt-mb-0">
-                <h1 className='text-center mb-4'>{t('loginPage.title')}</h1>
-                <Form.FloatingLabel className="mb-3" id="username" label={t('loginPage.username')}>
+                <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
+                <Form.FloatingLabel className="mb-3" controlId="username" label={t('loginPage.username')}>
                   <Form.Control
-                    className='form-control'
+                    className="form-control"
                     onChange={formik.handleChange}
                     value={formik.values.username}
                     isInvalid={authFailed}
                     ref={inputRef}
                     placeholder={t('loginPage.username')}
-                    name='username'
-                    id='username'
-                    autoComplete='username'
+                    name="username"
+                    autoComplete="username"
                     required
                   />
                 </Form.FloatingLabel>
-                <Form.FloatingLabel className="mb-4" id="password" label={t('loginPage.password')}>
+                <Form.FloatingLabel className="mb-4" controlId="password" label={t('loginPage.password')}>
                   <Form.Control
-                    className='form-control'
-                    type='password'
+                    className="form-control"
+                    type="password"
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     isInvalid={authFailed}
                     placeholder={t('loginPage.password')}
-                    name='password'
-                    id='password'
-                    autoComplete='current-password'
+                    name="password"
+                    autoComplete="current-password"
                     required
                   />
-                  <Form.Control.Feedback type="invalid">{t('errors.authFailed')}</Form.Control.Feedback>
+                  {authFailed && (<Form.Control.Feedback type="invalid" tooltip>{t('errors.authFailed')}</Form.Control.Feedback>)}
                 </Form.FloatingLabel>
                 <Button className='w-100 mb-2 btn btn-outline-dark' type="submit" variant="outline-primary">
                   {t('loginPage.btn')}

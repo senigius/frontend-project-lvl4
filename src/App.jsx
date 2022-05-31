@@ -15,11 +15,11 @@ import {
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import Login from './Login.jsx';
-import MissingPage from './MissingPage.jsx';
-import Chat from './Chat.jsx';
-import RegistrationForm from './RegistrationForm.jsx';
-import { useAuth } from '../hooks';
+import Login from './components/LoginPage.jsx';
+import MissingPage from './components/MissingPage.jsx';
+import Chat from './components/ChatPage.jsx';
+import RegistrationForm from './components/SignUpPage.jsx';
+import { useAuth } from './hooks/index.jsx';
 
 const RequireAuth = ({ children }) => {
   const auth = useAuth();

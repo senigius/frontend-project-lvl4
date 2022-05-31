@@ -42,30 +42,31 @@ const Channel = ({ id, name, removable }) => {
       </Nav.Item>
     );
   }
+
   return (
-        <Nav.Item as="li" className="w-100">
-            <Dropdown className="d-flex" as={ButtonGroup}>
-                <button
-                  onClick={() => dispatch(channelsActions.setCurrentChannel(id))}
-                  type="button"
-                  className={btnClasses}
-                >
-                    <span className="me-1">#</span>
-                    {name}
-                </button>
-                <Dropdown.Toggle split variant={id === currentChannel ? 'secondary' : ''}>
-                  <span className="visually-hidden">{'Name'}</span>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={handleRename}>
-                    {t('channels.chRename')}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={handleRemove}>
-                    {t('channels.chRemove')}
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-        </Nav.Item>
+    <Nav.Item as="li" className="w-100">
+      <Dropdown className="d-flex" as={ButtonGroup}>
+        <button
+          onClick={() => dispatch(channelsActions.setCurrentChannel(id))}
+          type="button"
+          className={btnClasses}
+        >
+          <span className="me-1">#</span>
+          {name}
+        </button>
+        <Dropdown.Toggle split variant={id === currentChannel ? 'secondary' : ''}>
+          <span className="visually-hidden">{t('channels.name')}</span>
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={handleRename}>
+            {t('channels.chRename')}
+          </Dropdown.Item>
+          <Dropdown.Item onClick={handleRemove}>
+            {t('channels.chRemove')}
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </Nav.Item>
   );
 };
 

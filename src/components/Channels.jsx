@@ -13,19 +13,21 @@ const Channels = () => {
 
   return (
     <>
-        <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-            <span>{t('channels.title')}</span>
-            <button
-                className="btn btn-dark text-warning p-0"
-                type="button"
-                onClick={() => dispatch(modalsActions.showModal({ type: 'addChannel' }))}
-            ><h5>+</h5></button>
-        </div>
-        <Nav as="ul" className="flexs-column px-2" variant="pills" fill>
-            {channels.length > 0 && channels.map(({ id, name, removable }) => (
-                <Channel key={id} id={id} name={name} removable={removable} />
-            ))}
-        </Nav>
+      <div className="d-flex justify-content-between ps-4 pe-2 m-1">
+        <span>{t('channels.title')}</span>
+        <button
+          className="btn btn-dark text-warning"
+          type="button"
+          onClick={() => dispatch(modalsActions.showModal({ type: 'addChannel' }))}
+        >
+            <i>+</i>
+        </button>
+      </div>
+      <Nav as="ul" className="flexs-column px-2" variant="pills" fill>
+        {channels.length > 0 && channels.map(({ id, name, removable }) => (
+          <Channel key={id} id={id} name={name} removable={removable} />
+        ))}
+      </Nav>
     </>
   );
 };

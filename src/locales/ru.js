@@ -5,7 +5,7 @@ export default {
     logOut: 'Выйти',
     loginPage: {
       title: 'Войти',
-      username: 'Имя пользователя',
+      username: 'Ваш ник',
       password: 'Пароль',
       btn: 'Войти',
       regQuestion: 'Нет аккаунта?',
@@ -13,10 +13,10 @@ export default {
     },
     signUpPage: {
       title: 'Регистрация',
-      username: 'Ваше имя',
+      username: 'Имя пользователя',
       password: 'Пароль',
       passwordConfirm: 'Подтвердите пароль',
-      btn: 'Зарегестрироваться',
+      btn: 'Зарегистрироваться',
     },
     missingPage: {
       code: '404',
@@ -26,6 +26,7 @@ export default {
       title: 'Каналы',
       chRemove: 'Удалить',
       chRename: 'Переименовать',
+      name: 'Управление каналом',
     },
     messages: {
       messagesCount_one: '{{count}} сообщение',
@@ -47,14 +48,14 @@ export default {
     yup: {
       required: 'Обязательное поле',
       notOneOf: 'Такой канал уже существует',
-      username: 'Длина имени должна быть от 3 до 20 символов',
-      password: 'Длина пароля должна быть больше 6',
+      username: 'От 3 до 20 символов',
+      password: 'Не менее 6 символов',
       passwordConfirm: 'Пароли должны совпадать',
     },
     errors: {
       authFailed: 'Неверные имя пользователя или пароль',
       signUpFailed: 'Такой пользователь уже существует',
-      network: 'Ошибка сети',
+      network: 'Ошибка соединения',
     },
     notifications: {
       channelCreated: ' Канал создан',

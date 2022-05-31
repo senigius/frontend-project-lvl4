@@ -1,20 +1,27 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const MissingPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="container-fluid h-100">
-        <div className="row justify-content-center align-items-center">
-            <div className="col-md-2 d-flex">
-                <div className="display-4 text-uppercase">{t('missingPage.code')}</div>
-            </div>
-            <div className="col-12 col-md-6">
-                <div>{t('missingPage.text')}</div>
-            </div>
-        </div>
-    </div>
+    <Container fluid className="h-75">
+      <Row className="justify-content-center align-content-center h-75">
+        <Col xs={12} md={8} xxl={6}>
+          <Row className="justify-content-center">
+            <Col md={2} className="d-flex row align-items-center">
+              <div className="display-4 text-uppercase">
+                {t('missingPage.code')}
+              </div>
+            </Col>
+            <Col md={6} className="d-flex row align-items-center m-4">
+              {t('missingPage.text')}
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

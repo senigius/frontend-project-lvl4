@@ -6,7 +6,7 @@ import filter from 'leo-profanity';
 import 'regenerator-runtime';
 import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 
-import App from './components/App.jsx';
+import App from './App.jsx';
 import { AuthProvider } from './contexts/authContext.jsx';
 import SocketContext from './contexts/socketContext.jsx';
 import store from './slices/index.js';
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const rollbarConfig = {
-  accessToken: '6f9cd66044fa4a3db520d660139df37f',
+  accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
   captureUncaught: true,
   captureUnhandledRejections: true,
   enviroment: 'production',

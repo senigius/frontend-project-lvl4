@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
-  "version": "0.0.1",
-  "description": "minimalistic chat",
+  "version": "1.0.0",
+  "description": "minimalistic chat free4all",
   "main": "src/init.jsx",
   "type": "module",
   "scripts": {

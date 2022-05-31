@@ -73,10 +73,9 @@ const RegistrationForm = () => {
             <Card.Body className="row p-5">
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">{t('signUpPage.title')}</h1>
-                <Form.FloatingLabel className="mb-3" id="username" label={t('signUpPage.username')}>
+                <Form.FloatingLabel className="mb-3" controlId="username" label={t('signUpPage.username')}>
                   <Form.Control
                     className="form-control"
-                    id="username"
                     name="username"
                     placeholder={t('signUpPage.username')}
                     value={formik.values.username}
@@ -91,11 +90,10 @@ const RegistrationForm = () => {
                     {formik.errors.username}
                   </Form.Control.Feedback>
                 </Form.FloatingLabel>
-                <Form.FloatingLabel className="mb-3" id="username" label={t('signUpPage.password')}>
+                <Form.FloatingLabel className="mb-3" controlId="password" label={t('signUpPage.password')}>
                   <Form.Control
                     type="password"
                     className="form-control"
-                    id="password"
                     name="password"
                     placeholder={t('signUpPage.password')}
                     value={formik.values.password}
@@ -109,11 +107,10 @@ const RegistrationForm = () => {
                     {formik.errors.password}
                   </Form.Control.Feedback>
                 </Form.FloatingLabel>
-                <Form.FloatingLabel className="mb-3" id="username" label={t('signUpPage.passwordConfirm')}>
+                <Form.FloatingLabel className="mb-3" controlId="passwordConfirm" label={t('signUpPage.passwordConfirm')}>
                   <Form.Control
                     type="password"
                     className="form-control"
-                    id="passwordConfirm"
                     name="passwordConfirm"
                     placeholder={t('signUpPage.passwordConfirm')}
                     value={formik.values.passwordConfirm}

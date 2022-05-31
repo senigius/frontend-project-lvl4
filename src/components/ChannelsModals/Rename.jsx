@@ -55,7 +55,7 @@ const Rename = () => {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={formik.handleSubmit} autoComplete="off">
-                    <Form.Group className="form-group" id="newChannel">
+                    <Form.Group className="form-group" controlId="name">
                         <Form.Control
                         className="mb-2"
                         name="name"

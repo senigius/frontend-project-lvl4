@@ -26,22 +26,22 @@ const Remove = () => {
 
   return (
     <Modal centered show>
-        <Modal.Header closeButton onHide={handleClose}>
-            <Modal.Title>
-                {t('modal.removeChTitle')}
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <div className="lead p-3">{t('modal.removeChBody')} {item.name}?</div>
-            <div className="d-flex justify-content-end">
-                <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">
-                  {t('modal.cancel')}
-                </button>
-                <button onClick={handleRemove} type="button" className="me-2 btn btn-danger">
-                  {t('modal.submit')}
-                </button>
-            </div>
-        </Modal.Body>
+      <Modal.Header closeButton onHide={handleClose}>
+        <Modal.Title>
+          {t('modal.removeChTitle')}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="lead p-3">{t('modal.removeChBody')} {item.name}?</div>
+        <div className="d-flex justify-content-end">
+          <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">
+            {t('modal.cancel')}
+          </button>
+          <button onClick={handleRemove} type="button" className="me-2 btn btn-danger">
+            {t('modal.submit')}
+          </button>
+        </div>
+      </Modal.Body>
     </Modal>
   );
 };

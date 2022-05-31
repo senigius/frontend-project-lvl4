@@ -45,37 +45,36 @@ const Add = () => {
 
   return (
     <Modal centered show>
-        <Modal.Header closeButton onHide={handleClose}>
-            <Modal.Title>
-                {t('modal.addChTitle')}
-            </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <Form onSubmit={formik.handleSubmit} autoComplete="off">
-                <Form.Group className="form-group" id="addChannel">
-                    <Form.Control
-                    ref={inputRef}
-                    isInvalid={formik.errors.name}
-                    onChange={formik.handleChange}
-                    value={formik.values.name}
-                    placeholder={t('modal.chName')}
-                    className="mb-2"
-                    name="name"
-                    type="text"
-                    id="chName"
-                    />
-                    {formik.errors.name && <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>}
-                </Form.Group>
-                <div className="d-flex justify-content-end">
-                    <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">
-                      {t('modal.cancel')}
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                      {t('modal.submit')}
-                    </button>
-                </div>
-            </Form>
-        </Modal.Body>
+      <Modal.Header closeButton onHide={handleClose}>
+        <Modal.Title>
+          {t('modal.addChTitle')}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={formik.handleSubmit} autoComplete="off">
+          <Form.Group className="form-group" controlId="name">
+            <Form.Control
+              ref={inputRef}
+              isInvalid={formik.errors.name}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              placeholder={t('modal.chName')}
+              className="mb-2"
+              name="name"
+              type="text"
+            />
+              {formik.errors.name && <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>}
+          </Form.Group>
+          <div className="d-flex justify-content-end">
+            <button onClick={handleClose} type="button" className="me-2 btn btn-secondary">
+              {t('modal.cancel')}
+            </button>
+            <button type="submit" className="btn btn-primary">
+              {t('modal.submit')}
+            </button>
+          </div>
+        </Form>
+      </Modal.Body>
     </Modal>
   );
 };

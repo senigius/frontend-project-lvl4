@@ -14,15 +14,7 @@ import Messages from './Messages.jsx';
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as messagesActions } from '../slices/messagesSlice';
 import buildModal from './ChannelsModals/index.js';
-
-const getAuthHeader = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
-  }
-  return {};
-};
+import { useAuth } from '../hooks/index.jsx';
 
 const renderModal = (modal) => {
   if (!modal.type) return null;
@@ -33,6 +25,7 @@ const renderModal = (modal) => {
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const { getAuthHeader } = useAuth();
   const { modals } = useSelector((state) => state.modalsReducer);
 
   useEffect(() => {
@@ -42,28 +35,28 @@ const Chat = () => {
         batch(() => {
           dispatch(channelsActions.setChannels(data.channels));
           dispatch(messagesActions.setMessages(data.messages));
-          dispatch(channelsActions.setCurrentChannel(data.currentChannel));
+          dispatch(channelsActions.setCurrentChannel(data.currentChannelId));
         });
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, getAuthHeader]);
 
   return (
     <>
-        <Container className="h-100 my-4 overflow-hidden rounded shadow w-100">
-            <Row className="bg-light">
-                <Col className="border-end pt-5 px-0 bg-light" xs={4} md={2}>
-                    <Channels />
-                </Col>
-                <Col className="p-0">
-                    <Messages />
-                </Col>
-            </Row>
-        </Container>
-        {renderModal(modals)}
+      <Container className="h-75 my-4 overflow-hidden rounded shadow-lg">
+        <Row className="h-100">
+          <Col className="border-end pt-5 px-0" xs={4} md={2}>
+            <Channels />
+          </Col>
+          <Col className="h-100 p-0">
+            <Messages />
+          </Col>
+        </Row>
+      </Container>
+      {renderModal(modals)}
     </>
   );
 };
