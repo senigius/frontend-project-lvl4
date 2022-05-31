@@ -21,7 +21,7 @@ import routes from '../routes.js';
 
 import amogus from '../images/amogusReg.png';
 
-const RegistrationForm = () => {
+const SignUpPage = () => {
   const auth = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -144,4 +144,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default SignUpPage;

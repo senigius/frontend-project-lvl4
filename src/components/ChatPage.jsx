@@ -23,7 +23,7 @@ const renderModal = (modal) => {
   return <Modal />;
 };
 
-const Chat = () => {
+const ChatPage = () => {
   const dispatch = useDispatch();
   const { getAuthHeader } = useAuth();
   const { modals } = useSelector((state) => state.modalsReducer);
@@ -61,4 +61,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatPage;
