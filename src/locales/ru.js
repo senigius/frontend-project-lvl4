@@ -42,7 +42,7 @@ export default {
       removeChTitle: 'Удалить канал',
       removeChBody: 'Вы уверены, что хотите удалить канал',
       renameChTitle: 'Переименовать канал',
-      submit: 'Подтвердить',
+      submit: 'Отправить',
       cancel: 'Отмена',
     },
     yup: {
