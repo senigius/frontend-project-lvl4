@@ -6,13 +6,12 @@ import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { useSocket } from '../../hooks/index.jsx';
+import { useAPI } from '../../hooks/index.jsx';
 import { actions as modalsActions } from '../../slices/modalsSlice.js';
-import { actions as channelsActions } from '../../slices/channelsSlice.js';
 import { getChannelsNames } from '../../slices/selectors.js';
 
 const Add = () => {
-  const socket = useSocket();
+  const api = useAPI();
   const dispatch = useDispatch();
   const inputRef = useRef();
   const { t } = useTranslation();
@@ -32,14 +31,10 @@ const Add = () => {
         .max(20, t('modal.chMaxLength'))
         .notOneOf(channelsNames, t('yup.notOneOf')),
     }),
-    onSubmit: (name) => {
-      socket.emit('newChannel', name, (response) => {
-        if (response.status === 'ok') {
-          dispatch(channelsActions.setCurrentChannel(response.data.id));
-          handleClose();
-          toast.success(t('notifications.channelCreated'));
-        }
-      });
+    onSubmit: async (name) => {
+      await api.createChannel(name);
+      handleClose();
+      toast.success(t('notifications.channelCreated'));
     },
   });
 

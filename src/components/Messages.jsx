@@ -10,12 +10,32 @@ import { animateScroll } from 'react-scroll';
 import { useFormik } from 'formik';
 import filter from 'leo-profanity';
 
-import { useAuth, useSocket } from '../hooks';
+import { useAuth, useAPI } from '../hooks';
 import { getChannels, getCurrentChannel, getMessages } from '../slices/selectors';
 
+const buildMessageBox = (messages) => {
+  if (messages.length > 0) {
+    return (
+      <div id="message-box" className="chat-messages overflow-auto px-4">
+        {messages.map((message) => (
+          <div className="text-break mb-2" key={message.id}>
+            <b>{message.username}</b>
+            {`: ${message.body}`}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="text-muted h-100 d-flex align-items-center justify-content-center">
+      Тут пусто
+    </div>
+  );
+};
 const Messages = () => {
   const inputRef = useRef();
-  const socket = useSocket();
+  const api = useAPI();
   const { userId } = useAuth();
   const { t } = useTranslation();
 
@@ -41,16 +61,16 @@ const Messages = () => {
     initialValues: {
       body: '',
     },
-    onSubmit: (values, actions) => {
+    onSubmit: async (values, actions) => {
       const message = {
         body: filter.clean(values.body),
         channelId: currentChannel,
         username: userId.username,
       };
-      socket.emit('newMessage', message, () => {
-        actions.resetForm();
-        inputRef.current.focus();
-      });
+
+      await api.sendMessage(message);
+      actions.resetForm();
+      inputRef.current.focus();
     },
   });
 
@@ -64,14 +84,7 @@ const Messages = () => {
           {t('messages.messagesCount', { count: messages.length })}
         </span>
       </div>
-      <div id="message-box" className="chat-messages overflow-auto px-4">
-        {messages.length > 0 && messages.map((message) => (
-          <div className="text-break mb-2" key={message.id}>
-            <b>{message.username}</b>
-            {`: ${message.body}`}
-          </div>
-        ))}
-      </div>
+      {buildMessageBox(messages)}
       <div className="m-3 p-0 mt-auto">
         <Form onSubmit={formik.handleSubmit} className="p-2 rounded-2" noValidate>
           <InputGroup hasValidation>
@@ -90,7 +103,7 @@ const Messages = () => {
               type="submit"
               disabled={!formik.values.body.trim()
                   || formik.isSubmitting
-                  || !socket.connected}
+                  || !api.isConnected}
               className="btn btn-dark text-warning p-2 m-1 rounded-2"
             >
               {t('messages.btn')}

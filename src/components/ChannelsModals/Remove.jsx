@@ -5,24 +5,21 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions as modalsActions } from '../../slices/modalsSlice.js';
-import { useSocket } from '../../hooks/index.jsx';
+import { useAPI } from '../../hooks/index.jsx';
 import { getModalItem } from '../../slices/selectors.js';
 
 const Remove = () => {
   const { t } = useTranslation();
-  const socket = useSocket();
+  const api = useAPI();
   const dispatch = useDispatch();
   const modal = useSelector(getModalItem);
 
   const handleClose = () => dispatch(modalsActions.hideModal());
 
-  const handleRemove = () => {
-    socket.emit('removeChannel', modal, (response) => {
-      if (response.status === 'ok') {
-        handleClose();
-        toast.success(t('notifications.channelRemoved'));
-      }
-    });
+  const handleRemove = async () => {
+    await api.removeChannel(modal);
+    handleClose();
+    toast.success(t('notifications.channelRemoved'));
   };
 
   return (

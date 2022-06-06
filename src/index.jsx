@@ -1,7 +1,6 @@
 // @ts-check
 
 import ReactDOM from 'react-dom';
-// @ts-ignore
 import { io } from 'socket.io-client';
 import 'core-js/stable/index.js';
 

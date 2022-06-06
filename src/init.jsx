@@ -7,13 +7,12 @@ import 'regenerator-runtime';
 import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 
 import App from './App.jsx';
-import { AuthProvider } from './contexts/authContext.jsx';
-import SocketContext from './contexts/socketContext.jsx';
+import { AuthProvider } from './contexts/AuthContext.jsx';
+import APIContext from './contexts/APIContext.jsx';
 import store from './slices/index.js';
-import { actions as messagesActions } from './slices/messagesSlice.js';
-import { actions as channelsActions } from './slices/channelsSlice.js';
 import 'react-toastify/scss/main.scss';
 import ru from './locales/ru.js';
+import createAPI from './api/index.js';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
@@ -38,21 +37,7 @@ const init = async (socket) => {
   filter.loadDictionary();
   filter.add(filter.getDictionary('ru'));
 
-  socket.on('newMessage', (message) => {
-    store.dispatch(messagesActions.addMessages(message));
-  });
-
-  socket.on('newChannel', (channel) => {
-    store.dispatch(channelsActions.addChannel(channel));
-  });
-
-  socket.on('removeChannel', (channel) => {
-    store.dispatch(channelsActions.removeChannel(channel));
-  });
-
-  socket.on('renameChannel', (channel) => {
-    store.dispatch(channelsActions.renameChannel(channel));
-  });
+  const api = createAPI(socket, store);
 
   return (
     <RollbarProvider config={rollbarConfig}>
@@ -60,9 +45,9 @@ const init = async (socket) => {
         <Provider store={store}>
           <I18nextProvider i18n={i18n}>
             <AuthProvider>
-              <SocketContext.Provider value={socket}>
+              <APIContext.Provider value={api}>
                 <App />
-              </SocketContext.Provider>
+              </APIContext.Provider>
             </AuthProvider>
           </I18nextProvider>
         </Provider>

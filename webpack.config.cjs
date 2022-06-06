@@ -1,7 +1,6 @@
 // @ts-check
 
 const path = require('path');
-// @ts-ignore
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 

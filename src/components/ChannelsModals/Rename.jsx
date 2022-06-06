@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { actions as modalsActions } from '../../slices/modalsSlice';
-import { useSocket } from '../../hooks/index.jsx';
+import { useAPI } from '../../hooks/index.jsx';
 import { getChannelsNames, getModalItem } from '../../slices/selectors';
 
 const Rename = () => {
-  const socket = useSocket();
+  const api = useAPI();
   const dispatch = useDispatch();
   const inputRef = useRef();
   const { t } = useTranslation();
@@ -34,17 +34,14 @@ const Rename = () => {
         .max(20, t('modal.chMaxLength'))
         .notOneOf(channelsNames, t('yup.notOneOf')),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const data = {
         name: values.name,
         id: modal.id,
       };
-      socket.emit('renameChannel', data, (response) => {
-        if (response.status === 'ok') {
-          handleClose();
-          toast.success(t('notifications.channelRenamed'));
-        }
-      });
+      await api.renameChannel(data);
+      handleClose();
+      toast.success(t('notifications.channelRenamed'));
     },
   });
 

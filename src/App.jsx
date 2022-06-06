@@ -20,13 +20,14 @@ import MissingPage from './components/Pages/404.jsx';
 import Chat from './components/Pages/Chat.jsx';
 import SignUpPage from './components/Pages/SignUp.jsx';
 import { useAuth } from './hooks/index.jsx';
+import routes from './routes.js';
 
 const RequireAuth = ({ children }) => {
   const auth = useAuth();
   const location = useLocation();
 
   return (
-    auth.userId ? children : <Navigate to="/login" state={{ from: location }} />
+    auth.userId ? children : <Navigate to={routes.loginPagePath()} state={{ from: location }} />
   );
 };
 
@@ -38,8 +39,8 @@ const AuthButton = () => {
   if (auth.userId) {
     return <Button variant="warning" onClick={auth.logOut}>{t('logOut')}</Button>;
   }
-  if (location.pathname === '/signup') {
-    return <Button variant="warning" as={Link} to="/login">{t('logIn')}</Button>;
+  if (location.pathname === routes.signUpPagePath()) {
+    return <Button variant="warning" as={Link} to={routes.loginPagePath()}>{t('logIn')}</Button>;
   }
   return null;
 };
@@ -65,11 +66,11 @@ const App = () => {
             <RequireAuth>
               <Chat />
             </RequireAuth>
-        )}
+          )}
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/404" element={<MissingPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path={routes.loginPagePath()} element={<Login />} />
+        <Route path={routes.missingPagePath()} element={<MissingPage />} />
+        <Route path={routes.signUpPagePath()} element={<SignUpPage />} />
         <Route path="*" element={<MissingPage />} />
       </Routes>
       <ToastContainer
