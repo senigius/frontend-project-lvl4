@@ -76,6 +76,7 @@ const App = () => {
       <ToastContainer
         position="top-center"
         theme="dark"
+        pauseOnHover={false}
       />
     </Router>
   );

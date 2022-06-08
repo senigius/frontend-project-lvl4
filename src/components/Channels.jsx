@@ -31,7 +31,7 @@ const Channels = () => {
           <p className="visually-hidden">+</p>
         </button>
       </div>
-      <Nav as="ul" className="h-75 px-2 overflow-auto" variant="pills" fill>
+      <Nav as="ul" className="px-2" variant="pills" fill>
         {channels.map(({ id, name, removable }) => (
           <Channel key={id} id={id} name={name} removable={removable} />
         ))}
